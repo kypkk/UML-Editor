@@ -4,6 +4,7 @@ import org.kypkk.core.ResourceManage;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Editor {
 
@@ -20,17 +21,19 @@ public class Editor {
   public Editor(){
     panel = new JPanel();
 
+
     // buttons on the left
-    selectBtn = new EditorButton("select");
-    associationLineBtn = new EditorButton("assiociation Line");
-    generalizationLineBtn = new EditorButton("generalization Line");
-    compositionLineBtn = new EditorButton("composition Line");
-    classBtn = new EditorButton("class");
-    useCaseBtn = new EditorButton("use Case");
+    selectBtn = new EditorButton(new ImageIcon(ResourceManage.getResource("select.png")));
+    associationLineBtn = new EditorButton(new ImageIcon(ResourceManage.getResource("association.png")));
+    generalizationLineBtn = new EditorButton(new ImageIcon(ResourceManage.getResource("generalization.png")));
+    compositionLineBtn = new EditorButton(new ImageIcon(ResourceManage.getResource("composition.png")));
+    classBtn = new EditorButton(new ImageIcon(ResourceManage.getResource("class.png")));
+    useCaseBtn = new EditorButton(new ImageIcon(ResourceManage.getResource("usecase.png")));
 
     // UMLCanvas on the right
     canvas = new UMLCanvas();
-    canvas.setSize(new Dimension(720,720));
+    canvas.setSize(new Dimension(540,540));
+    canvas.setBackground(Color.DARK_GRAY);
 
     panel.add(canvas);
     GroupLayout layout = new GroupLayout(panel);
