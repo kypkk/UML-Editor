@@ -6,9 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Editor {
+public class Editor extends JPanel {
 
-  private final JPanel panel;
   private final JButton selectBtn;
   private final JButton associationLineBtn;
   private final JButton generalizationLineBtn;
@@ -19,9 +18,6 @@ public class Editor {
 
 
   public Editor(){
-    panel = new JPanel();
-
-
     // buttons on the left
     selectBtn = new EditorButton(new ImageIcon(ResourceManage.getResource("select.png")));
     associationLineBtn = new EditorButton(new ImageIcon(ResourceManage.getResource("association.png")));
@@ -35,9 +31,10 @@ public class Editor {
     canvas.setSize(new Dimension(540,540));
     canvas.setBackground(Color.DARK_GRAY);
 
-    panel.add(canvas);
-    GroupLayout layout = new GroupLayout(panel);
-    panel.setLayout(layout);
+    // panel and canvas layout setting
+    add(canvas);
+    GroupLayout layout = new GroupLayout(this);
+    setLayout(layout);
 
     layout.setAutoCreateGaps(true);
     layout.setAutoCreateContainerGaps(true);
@@ -66,9 +63,4 @@ public class Editor {
       ).addComponent(canvas)
     );
   }
-
-  public JPanel getPanel(){
-    return panel;
-  }
-
 }
