@@ -4,7 +4,6 @@ import org.kypkk.graphic.Editor;
 import org.kypkk.graphic.EditorMenuBar;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class App {
   public static void main(String[] args) {

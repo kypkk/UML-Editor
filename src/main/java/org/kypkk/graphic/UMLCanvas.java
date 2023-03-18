@@ -1,6 +1,9 @@
 package org.kypkk.graphic;
 
-import java.awt.*;
+import org.kypkk.graphic.UMLObjects.ClassObj;
+import org.kypkk.graphic.UMLObjects.UseCaseObj;
+
+import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -10,12 +13,12 @@ import java.awt.event.MouseMotionListener;
  */
 
 
-public class UMLCanvas extends Canvas {
+public class UMLCanvas extends JPanel {
 
   private final Editor editor;
 
   public UMLCanvas (Editor editor){
-    super();
+    super(new UMLLayoutManager());
     this.editor = editor;
 
     addMouseListener(new MouseListener() {
@@ -27,6 +30,17 @@ public class UMLCanvas extends Canvas {
       @Override
       public void mousePressed(MouseEvent e) {
         System.out.println("pressed");
+
+        switch(editor.getState().getOp()){
+          case CLASS -> {
+            createClassObj(e.getX(), e.getY());
+            break;
+          }
+          case USE_CASE -> {
+            createUsecaseObj(e.getX(), e.getY());
+            break;
+          }
+        }
       }
 
       @Override
@@ -56,6 +70,16 @@ public class UMLCanvas extends Canvas {
         System.out.println("moving");
       }
     });
+  }
+
+  public void createClassObj(int x, int y){
+    this.add(new ClassObj(x, y));
+    this.repaint();
+  }
+
+  public void createUsecaseObj(int x, int y){
+    this.add(new UseCaseObj(x, y));
+    this.repaint();
   }
 
 }

@@ -5,10 +5,6 @@ import org.kypkk.core.events.StateListener;
 
 public class EditorState {
 
-  public enum EditorOP{
-    SELECT, ASSOCIATION_LINE, GENERALIZATION_LINE, COMPOSITION_LINE, CLASS, USE_CASE
-  }
-
   private final Editor editor;
   private EditorOP op = EditorOP.SELECT;
 
@@ -29,5 +25,9 @@ public class EditorState {
     for(StateListener listener: editor.getStateListeners()){
       listener.changeState(new StateEvent(editor));
     }
+  }
+
+  public enum EditorOP{
+    SELECT, ASSOCIATION_LINE, GENERALIZATION_LINE, COMPOSITION_LINE, CLASS, USE_CASE
   }
 }

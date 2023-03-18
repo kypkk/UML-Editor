@@ -32,12 +32,9 @@ public class EditorButton extends JButton{
       Editor editor = (Editor) e.getSource();
 
       if (editor.getState().getOp() == this.op) {
-        setBackground(Color.BLACK);
-        System.out.println(this.op+" is choosed");
+        this.setBackground(Color.BLACK);
       } else {
-        setBackground(Color.WHITE);
-        System.out.println(this.op+" is unchoosed");
-
+        this.setBackground(Color.WHITE);
       }
     });
   }

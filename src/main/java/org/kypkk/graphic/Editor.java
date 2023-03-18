@@ -36,7 +36,7 @@ public class Editor extends JPanel {
     // UMLCanvas on the right
     canvas = new UMLCanvas(this);
     canvas.setSize(new Dimension(540,540));
-    canvas.setBackground(Color.DARK_GRAY);
+    canvas.setBackground(Color.lightGray);
 
     // panel and canvas layout setting
     add(canvas);
