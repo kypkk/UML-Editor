@@ -19,22 +19,26 @@ public class Editor extends JPanel {
   private final UMLCanvas canvas;
   private final EditorState state;
 
+  private static Editor instance = null;
+
   // editor constructor
   public Editor(){
 
+    instance = this;
+
     // Editor state
-    state = new EditorState(this);
+    state = new EditorState();
 
     // buttons on the left
-    selectBtn = new EditorButton(new ImageIcon(ResourceManage.getResource("icons/select.png")), this, EditorState.EditorOP.SELECT);
-    associationLineBtn = new EditorButton(new ImageIcon(ResourceManage.getResource("icons/association.png")), this, EditorState.EditorOP.ASSOCIATION_LINE);
-    generalizationLineBtn = new EditorButton(new ImageIcon(ResourceManage.getResource("icons/generalization.png")),this, EditorState.EditorOP.GENERALIZATION_LINE);
-    compositionLineBtn = new EditorButton(new ImageIcon(ResourceManage.getResource("icons/composition.png")), this, EditorState.EditorOP.COMPOSITION_LINE);
-    classBtn = new EditorButton(new ImageIcon(ResourceManage.getResource("icons/class.png")), this, EditorState.EditorOP.CLASS);
-    useCaseBtn = new EditorButton(new ImageIcon(ResourceManage.getResource("icons/usecase.png")), this, EditorState.EditorOP.USE_CASE);
+    selectBtn = new EditorButton(new ImageIcon(ResourceManage.getResource("icons/select.png")),  EditorState.EditorOP.SELECT);
+    associationLineBtn = new EditorButton(new ImageIcon(ResourceManage.getResource("icons/association.png")),  EditorState.EditorOP.ASSOCIATION_LINE);
+    generalizationLineBtn = new EditorButton(new ImageIcon(ResourceManage.getResource("icons/generalization.png")), EditorState.EditorOP.GENERALIZATION_LINE);
+    compositionLineBtn = new EditorButton(new ImageIcon(ResourceManage.getResource("icons/composition.png")), EditorState.EditorOP.COMPOSITION_LINE);
+    classBtn = new EditorButton(new ImageIcon(ResourceManage.getResource("icons/class.png")),  EditorState.EditorOP.CLASS);
+    useCaseBtn = new EditorButton(new ImageIcon(ResourceManage.getResource("icons/usecase.png")), EditorState.EditorOP.USE_CASE);
 
     // UMLCanvas on the right
-    canvas = new UMLCanvas(this);
+    canvas = new UMLCanvas();
     canvas.setSize(new Dimension(540,540));
     canvas.setBackground(Color.lightGray);
 
@@ -83,4 +87,7 @@ public class Editor extends JPanel {
     return this.getListeners(StateListener.class);
   }
 
+  public static Editor getInstance(){
+    return instance;
+  }
 }

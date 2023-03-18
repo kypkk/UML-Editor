@@ -1,6 +1,8 @@
 package org.kypkk.graphic;
 
+import org.kypkk.core.events.StateListener;
 import org.kypkk.graphic.UMLObjects.ClassObj;
+import org.kypkk.graphic.UMLObjects.UMLObj;
 import org.kypkk.graphic.UMLObjects.UseCaseObj;
 
 import javax.swing.*;
@@ -17,9 +19,9 @@ public class UMLCanvas extends JPanel {
 
   private final Editor editor;
 
-  public UMLCanvas (Editor editor){
+  public UMLCanvas (){
     super(new UMLLayoutManager());
-    this.editor = editor;
+    editor = Editor.getInstance();
 
     addMouseListener(new MouseListener() {
       @Override
@@ -41,6 +43,10 @@ public class UMLCanvas extends JPanel {
             break;
           }
         }
+        if(editor.getState().getOp() == EditorState.EditorOP.SELECT){
+          editor.getState().setSelected(null);
+        }
+        System.out.println("pressed");
       }
 
       @Override
@@ -62,6 +68,7 @@ public class UMLCanvas extends JPanel {
     addMouseMotionListener(new MouseMotionListener() {
       @Override
       public void mouseDragged(MouseEvent e) {
+
         System.out.println("dragged");
       }
 
@@ -73,13 +80,13 @@ public class UMLCanvas extends JPanel {
   }
 
   public void createClassObj(int x, int y){
-    this.add(new ClassObj(x, y));
-    this.repaint();
+    add(new ClassObj(x, y));
+    repaint();
   }
 
   public void createUsecaseObj(int x, int y){
-    this.add(new UseCaseObj(x, y));
-    this.repaint();
+    add(new UseCaseObj(x, y));
+    repaint();
   }
 
 }

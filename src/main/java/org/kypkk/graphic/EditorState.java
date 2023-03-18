@@ -2,14 +2,17 @@ package org.kypkk.graphic;
 
 import org.kypkk.core.events.StateEvent;
 import org.kypkk.core.events.StateListener;
+import org.kypkk.graphic.UMLObjects.UMLObj;
 
 public class EditorState {
+
+  private UMLObj selected;
 
   private final Editor editor;
   private EditorOP op = EditorOP.SELECT;
 
-  public EditorState(Editor editor){
-    this.editor = editor;
+  public EditorState(){
+    editor = Editor.getInstance();
   }
 
   public EditorOP getOp(){
@@ -25,6 +28,15 @@ public class EditorState {
     for(StateListener listener: editor.getStateListeners()){
       listener.changeState(new StateEvent(editor));
     }
+  }
+
+  public UMLObj getSelected() {
+    return selected;
+  }
+
+  public void setSelected(UMLObj selected) {
+    this.selected = selected;
+    setOpEvent();
   }
 
   public enum EditorOP{

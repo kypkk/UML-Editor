@@ -8,9 +8,9 @@ public class EditorButton extends JButton{
   private final Editor editor;
   private final EditorState.EditorOP op;
 
-  EditorButton(Icon icon, Editor editor, EditorState.EditorOP op){
+  EditorButton(Icon icon, EditorState.EditorOP op){
     super(icon);
-    this.editor = editor;
+    editor = Editor.getInstance();
     this.op = op;
     initialize(this.op);
   }
