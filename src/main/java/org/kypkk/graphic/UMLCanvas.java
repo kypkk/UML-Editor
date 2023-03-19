@@ -2,8 +2,10 @@ package org.kypkk.graphic;
 
 import org.kypkk.core.events.StateListener;
 import org.kypkk.graphic.UMLObjects.ClassObj;
+import org.kypkk.graphic.UMLObjects.SelectObjs;
 import org.kypkk.graphic.UMLObjects.UMLObj;
 import org.kypkk.graphic.UMLObjects.UseCaseObj;
+import static java.lang.Math.*;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;
@@ -18,6 +20,7 @@ import java.awt.event.MouseMotionListener;
 public class UMLCanvas extends JPanel {
 
   private final Editor editor;
+  private SelectObjs selectObjs;
 
   public UMLCanvas (){
     super(new UMLLayoutManager());
@@ -45,6 +48,10 @@ public class UMLCanvas extends JPanel {
         }
         if(editor.getState().getOp() == EditorState.EditorOP.SELECT){
           editor.getState().setSelected(null);
+
+          selectObjs = new SelectObjs(e.getX(), e.getY());
+          add(selectObjs);
+          selectObjs.repaint();
         }
         System.out.println("pressed");
       }
@@ -52,6 +59,11 @@ public class UMLCanvas extends JPanel {
       @Override
       public void mouseReleased(MouseEvent e) {
         System.out.println("released");
+        if(editor.getState().getOp() == EditorState.EditorOP.SELECT && selectObjs != null){
+          remove(selectObjs);
+          selectObjs = null;
+          repaint();
+        }
       }
 
       @Override
@@ -68,8 +80,19 @@ public class UMLCanvas extends JPanel {
     addMouseMotionListener(new MouseMotionListener() {
       @Override
       public void mouseDragged(MouseEvent e) {
-
         System.out.println("dragged");
+        int mouseX;
+        int mouseY;
+
+        mouseX = max(e.getX(), 0);
+        mouseY = max(e.getY(), 0);
+
+
+
+        if(editor.getState().getOp() == EditorState.EditorOP.SELECT && selectObjs != null){
+          selectObjs.select_dragging(mouseX, mouseY);
+
+        }
       }
 
       @Override
