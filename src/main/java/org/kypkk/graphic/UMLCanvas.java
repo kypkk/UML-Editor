@@ -1,9 +1,6 @@
 package org.kypkk.graphic;
 
-import org.kypkk.core.events.StateListener;
 import org.kypkk.graphic.UMLObjects.ClassObj;
-import org.kypkk.graphic.UMLObjects.SelectObjs;
-import org.kypkk.graphic.UMLObjects.UMLObj;
 import org.kypkk.graphic.UMLObjects.UseCaseObj;
 import static java.lang.Math.*;
 

@@ -1,4 +1,4 @@
-package org.kypkk.graphic.UMLObjects;
+package org.kypkk.graphic;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,34 +6,34 @@ import java.awt.*;
 import static java.lang.Math.*;
 
 public class SelectObjs extends JPanel {
-  private int x;
-  private int y;
+  private int sel_x;
+  private int sel_y;
 
   public SelectObjs(int x, int y){
     super();
-    this.x = x;
-    this.y = y;
+    this.sel_x = x;
+    this.sel_y = y;
   }
 
   public void setX(int x){
-    this.x = x;
+    this.sel_x = x;
   }
 
   public void setY(int y){
-    this.y = y;
+    this.sel_y = y;
   }
 
-  public int getX(){
-    return this.x;
+  public int getSel_X(){
+    return this.sel_x;
   }
 
-  public int getY(){
-    return this.y;
+  public int getSel_Y(){
+    return this.sel_y;
   }
 
   public void select_dragging(int mouseX, int mouseY) {
-    setLocation(Math.min(mouseX, x), Math.min(mouseY, y));
-    setSize(Math.abs(mouseX - x), Math.abs(mouseY - y));
+    setLocation(Math.min(mouseX, sel_x), Math.min(mouseY, sel_y));
+    setSize(Math.abs(mouseX - sel_x), Math.abs(mouseY - sel_y));
   }
 
   @Override
