@@ -6,7 +6,7 @@ import org.kypkk.graphic.UMLObjects.UMLObj;
 
 public class EditorState {
 
-  private UMLObj selected;
+  private UMLObj[] selecteds;
 
   private final Editor editor;
   private EditorOP op = EditorOP.SELECT;
@@ -30,12 +30,12 @@ public class EditorState {
     }
   }
 
-  public UMLObj getSelected() {
-    return selected;
+  public UMLObj[] getSelecteds() {
+    return selecteds;
   }
 
-  public void setSelected(UMLObj selected) {
-    this.selected = selected;
+  public void setSelecteds(UMLObj[] selecteds) {
+    this.selecteds = selecteds;
     setOpEvent();
   }
 

@@ -34,9 +34,9 @@ public abstract class UMLObj extends BaseObj {
 
           o.isSelect = !isSelect;
           if(o.isSelect){
-            state.setSelected(o);
+            state.setSelecteds(new UMLObj[]{o});
           }else{
-            state.setSelected(null);
+            state.setSelecteds(null);
           }
 
 
@@ -80,14 +80,36 @@ public abstract class UMLObj extends BaseObj {
     });
 
     editor.addStateListener(e -> {
-      var selected =((Editor) e.getSource()).getState().getSelected();
-      if(selected == null || !selected.equals(this))
+      UMLObj[] selecteds =((Editor) e.getSource()).getState().getSelecteds();
+      if(selecteds == null)
         isSelect = false;
+      else{
+        boolean inselect = false;
+
+        for(UMLObj s: selecteds){
+          if(s.equals(this)){
+            inselect = true;
+            break;
+          }
+        }
+
+        if(!inselect)
+          isSelect = false;
+      }
       repaint();
     });
 
 
   }
+
+  public boolean isSelect(){
+    return this.isSelect;
+  }
+
+  public void setSelected(boolean isSelect){
+    this.isSelect = isSelect;
+  }
+
   protected void paintComponentPorts(Graphics g){
     Graphics2D g2d = (Graphics2D) g;
     if(isSelect){

@@ -44,7 +44,7 @@ public class UMLCanvas extends JPanel {
           }
         }
         if(editor.getState().getOp() == EditorState.EditorOP.SELECT){
-          editor.getState().setSelected(null);
+          editor.getState().setSelecteds(null);
 
           selectObjs = new SelectObjs(e.getX(), e.getY());
           add(selectObjs);
@@ -57,6 +57,9 @@ public class UMLCanvas extends JPanel {
       public void mouseReleased(MouseEvent e) {
         System.out.println("released");
         if(editor.getState().getOp() == EditorState.EditorOP.SELECT && selectObjs != null){
+
+          selectObjs.selectUMLObjs(getComponents());
+
           remove(selectObjs);
           selectObjs = null;
           repaint();
