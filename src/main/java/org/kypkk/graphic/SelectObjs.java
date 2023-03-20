@@ -52,7 +52,7 @@ public class SelectObjs extends JPanel {
       // only select the UMLObjs
       if(compo instanceof UMLObj){
         // check if UMLObj is in the selectObjs'
-        if(compo.getX() > getSel_X() && compo.getX() + compo.getWidth() < getSel_X() + getWidth() && compo.getY() > getSel_Y() && compo.getHeight() + compo.getY() < getSel_Y() + getHeight())
+        if(compo.getX() > getX() && compo.getX() + compo.getWidth() < getX() + getWidth() && compo.getY() > getY() && compo.getHeight() + compo.getY() < getY() + getHeight())
           ((UMLObj) compo).setSelected(true);
 
 

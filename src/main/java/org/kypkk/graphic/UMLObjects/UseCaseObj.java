@@ -12,7 +12,7 @@ public class UseCaseObj extends UMLObj{
   @Override
   public void paintComponent(Graphics g){
     Graphics2D g2d = (Graphics2D) g;
-    g2d.setStroke(new BasicStroke(2));
+    g2d.setStroke(new BasicStroke(3));
     g2d.drawOval(5,5,100, 50);
     g2d.setPaint(Color.BLACK);
     paintComponentPorts(g);
