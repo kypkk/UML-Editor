@@ -21,6 +21,11 @@ public class EditorMenuBar extends JMenuBar {
       editor.getState().setSelecteds(null);
       System.out.println("group");
     });
+    ungroupItem.addActionListener(e -> {
+      editor.getCanvas().ungroupCompositeObj();
+      editor.getState().setSelecteds(null);
+      System.out.println("ungroup");
+    });
 
     editMenu.add(groupItem);
     editMenu.add(ungroupItem);
