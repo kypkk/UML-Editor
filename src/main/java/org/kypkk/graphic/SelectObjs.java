@@ -4,6 +4,7 @@ import org.kypkk.graphic.UMLObjects.UMLObj;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 
 public class SelectObjs extends JPanel {
@@ -48,16 +49,22 @@ public class SelectObjs extends JPanel {
   }
 
   public void selectUMLObjs(Component[] components){
+    ArrayList<UMLObj> selectedList = new ArrayList<>();
     for(var compo: components){
       // only select the UMLObjs
       if(compo instanceof UMLObj){
+        UMLObj obj  = (UMLObj) compo;
         // check if UMLObj is in the selectObjs'
-        if(compo.getX() > getX() && compo.getX() + compo.getWidth() < getX() + getWidth() && compo.getY() > getY() && compo.getHeight() + compo.getY() < getY() + getHeight())
-          ((UMLObj) compo).setSelected(true);
-
+        if(compo.getX() > getX() && compo.getX() + compo.getWidth() < getX() + getWidth() && compo.getY() > getY() && compo.getHeight() + compo.getY() < getY() + getHeight() && !obj.isGroup()){
+          obj.setSelected(true);
+          selectedList.add(obj);
+        }
 
       }
     }
+
+    UMLObj[] selectedOBJlist = new UMLObj[selectedList.size()];
+    Editor.getInstance().getState().setSelecteds(selectedList.toArray(selectedOBJlist));
   }
 
 }

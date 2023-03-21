@@ -90,4 +90,8 @@ public class Editor extends JPanel {
   public static Editor getInstance(){
     return instance;
   }
+
+  public UMLCanvas getCanvas(){
+    return this.canvas;
+  }
 }

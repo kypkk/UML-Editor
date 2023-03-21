@@ -9,15 +9,48 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 public abstract class UMLObj extends BaseObj {
-  private boolean isSelect = false;
+  protected boolean isSelect = false;
+  protected boolean isGroup = false;
   private Point mousePt;
+
+  public UMLObj(){
+    super();
+    initialize();
+  }
 
   public UMLObj(int x, int y){
     super();
-
     setLocation(x, y);
+    initialize();
+  }
 
+  private static UMLObj getTopObj(UMLObj o) {
+    if (o.isGroup) {
+      o = (UMLObj) o.getParent();
+      while (o.isGroup) {
+        o = (UMLObj) o.getParent();
+      }
+    }
+    return o;
+  }
 
+  public boolean isGroup(){
+    return this.isGroup;
+  }
+
+  public void setGrouped(boolean isGroup){
+    this.isGroup = isGroup;
+  }
+
+  public boolean isSelect(){
+    return this.isSelect;
+  }
+
+  public void setSelected(boolean isSelect){
+    this.isSelect = isSelect;
+  }
+
+  private void initialize(){
     addMouseListener(new MouseListener() {
       @Override
       public void mouseClicked(MouseEvent e) {
@@ -31,14 +64,16 @@ public abstract class UMLObj extends BaseObj {
         mousePt = e.getPoint();
 
         if(state.getOp() == EditorState.EditorOP.SELECT ){
-
-          o.isSelect = !isSelect;
-          if(o.isSelect){
-            state.setSelecteds(new UMLObj[]{o});
-          }else{
-            state.setSelecteds(null);
+          if(o.isGroup){
+            o = (UMLObj) o.getParent();
+            while(o.isGroup)
+              o = (UMLObj) o.getParent();
           }
-
+          o.isSelect = !isSelect;
+          if (o.isSelect)
+            state.setSelecteds(new UMLObj[]{o});
+          else
+            state.setSelecteds(null);
 
         }
       }
@@ -62,14 +97,17 @@ public abstract class UMLObj extends BaseObj {
     addMouseMotionListener(new MouseMotionListener() {
       @Override
       public void mouseDragged(MouseEvent e) {
-        UMLObj o = (UMLObj) e.getSource();
-        EditorState state = editor.getState();
-        if(state.getOp() == EditorState.EditorOP.SELECT){
-          o.isSelect = true;
-          int dx = e.getX() - mousePt.x;
-          int dy = e.getY() - mousePt.y;
-          o.setLocation(o.getX() + dx, o.getY() + dy);
-        }
+          UMLObj o = (UMLObj) e.getSource();
+          o = getTopObj(o);
+          EditorState state = editor.getState();
+          if(state.getOp() == EditorState.EditorOP.SELECT){
+            o.isSelect = true;
+            int dx = e.getX() - mousePt.x;
+            int dy = e.getY() - mousePt.y;
+            o.setLocation(o.getX() + dx, o.getY() + dy);
+          }
+
+
 
       }
 
@@ -98,16 +136,6 @@ public abstract class UMLObj extends BaseObj {
       }
       repaint();
     });
-
-
-  }
-
-  public boolean isSelect(){
-    return this.isSelect;
-  }
-
-  public void setSelected(boolean isSelect){
-    this.isSelect = isSelect;
   }
 
   protected void paintComponentPorts(Graphics g){

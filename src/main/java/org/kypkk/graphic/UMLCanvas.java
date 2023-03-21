@@ -1,6 +1,8 @@
 package org.kypkk.graphic;
 
 import org.kypkk.graphic.UMLObjects.ClassObj;
+import org.kypkk.graphic.UMLObjects.CompositeObj;
+import org.kypkk.graphic.UMLObjects.UMLObj;
 import org.kypkk.graphic.UMLObjects.UseCaseObj;
 import static java.lang.Math.*;
 
@@ -100,6 +102,16 @@ public class UMLCanvas extends JPanel {
         System.out.println("moving");
       }
     });
+  }
+
+  public void createCompositeObj(){
+    UMLObj[] selectedObjs = editor.getState().getSelecteds();
+    if(selectedObjs != null && selectedObjs.length > 1){
+      for(UMLObj obj : selectedObjs)
+        remove(obj);
+      add(new CompositeObj(selectedObjs));
+      repaint();
+    }
   }
 
   public void createClassObj(int x, int y){
