@@ -27,11 +27,11 @@ public abstract class UMLObj extends BaseObj {
       public void mousePressed(MouseEvent e) {
         UMLObj o = (UMLObj) e.getSource();
         EditorState state = editor.getState();
-        o = getTopObj(o);
+
 
         if(state.getOp() == EditorState.EditorOP.SELECT ){
           mousePt = e.getPoint();
-
+          o = getTopObj(o);
           o.isSelect = !isSelect;
           if (o.isSelect)
             state.setSelecteds(new UMLObj[]{o});
