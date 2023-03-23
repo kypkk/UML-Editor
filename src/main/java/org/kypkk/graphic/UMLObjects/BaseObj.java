@@ -14,4 +14,9 @@ public abstract class BaseObj extends JComponent {
   BaseObj(){
     editor = Editor.getInstance();
   }
+
+  public int getDepth(){
+    return this.depth;
+  }
+
 }

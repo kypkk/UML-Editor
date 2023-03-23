@@ -1,15 +1,15 @@
 package org.kypkk.graphic;
 
-import org.kypkk.graphic.UMLObjects.ClassObj;
-import org.kypkk.graphic.UMLObjects.CompositeObj;
-import org.kypkk.graphic.UMLObjects.UMLObj;
-import org.kypkk.graphic.UMLObjects.UseCaseObj;
+import org.kypkk.graphic.UMLObjects.*;
+
 import static java.lang.Math.*;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 
 /**
  * This is a class that paint UML objects on Canvas
@@ -20,10 +20,12 @@ public class UMLCanvas extends JPanel {
 
   private final Editor editor;
   private SelectObjs selectObjs;
+  private final ArrayList<LineObj> lineObjArrayList;
 
   public UMLCanvas (){
     super(new UMLLayoutManager());
     editor = Editor.getInstance();
+    lineObjArrayList = new ArrayList<LineObj>();
 
     addMouseListener(new MouseListener() {
       @Override
@@ -83,18 +85,17 @@ public class UMLCanvas extends JPanel {
       @Override
       public void mouseDragged(MouseEvent e) {
         System.out.println("dragged");
-        int mouseX;
-        int mouseY;
-
-        mouseX = max(e.getX(), 0);
-        mouseY = max(e.getY(), 0);
-
-
 
         if(editor.getState().getOp() == EditorState.EditorOP.SELECT && selectObjs != null){
+          int mouseX;
+          int mouseY;
+
+          mouseX = max(e.getX(), 0);
+          mouseY = max(e.getY(), 0);
           selectObjs.select_dragging(mouseX, mouseY);
 
         }
+
       }
 
       @Override
@@ -138,6 +139,28 @@ public class UMLCanvas extends JPanel {
   public void createUsecaseObj(int x, int y){
     add(new UseCaseObj(x, y));
     repaint();
+  }
+
+  public void createLineObj(UMLObj start_obj, UMLObj end_obj, UMLObj.portDirection start_port, UMLObj.portDirection end_port, LineObj.Linetype type ){
+    lineObjArrayList.add(new LineObj(start_obj, end_obj, start_port, end_port, type));
+    repaint();
+  }
+
+  @Override
+  public void paintComponent(Graphics g) {
+    super.paintComponent(g);
+    Graphics2D g2d = (Graphics2D) g;
+    g2d.setColor(Color.BLACK);
+    g2d.setStroke(new BasicStroke(3));
+    for(var line: lineObjArrayList){
+      UMLObj start_obj = line.getStart_obj();
+      UMLObj end_obj = line.getEnd_obj();
+      Point start_point = start_obj.getPortPoint(line.getStart_port());
+      Point end_point = end_obj.getPortPoint(line.getEnd_port());
+      g2d.drawLine((int) start_point.getX(), (int) start_point.getY(), (int) end_point.getX(), (int) end_point.getY());
+    }
+    repaint();
+
   }
 
 }

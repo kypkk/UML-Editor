@@ -36,7 +36,6 @@ public class CompositeObj extends UMLObj{
 
     int count = 0;
     for(UMLObj obj: UmlObjs){
-      System.out.println(obj.getHeight());
       obj.setLocation(x, y);
       y += obj.getHeight() - 10;
     }
@@ -46,8 +45,6 @@ public class CompositeObj extends UMLObj{
   public void paintComponent(Graphics g) {
     Graphics2D g2d = (Graphics2D) g;
     g2d.setStroke(new BasicStroke(3));
-    System.out.println(length);
-
     g2d.setPaint(Color.BLACK);
     paintComponentPorts(g);
   }
