@@ -56,7 +56,7 @@ public abstract class UMLObj extends BaseObj {
         UMLObj o = (UMLObj) e.getSource();
         EditorState state = editor.getState();
 
-        if(line!= null && state.getOp() == EditorState.EditorOP.ASSOCIATION_LINE || state.getOp() == EditorState.EditorOP.COMPOSITION_LINE || state.getOp() == EditorState.EditorOP.GENERALIZATION_LINE && !o.isGroup()){
+        if(line!= null && state.getOp() == EditorState.EditorOP.ASSOCIATION_LINE || state.getOp() == EditorState.EditorOP.COMPOSITION_LINE || state.getOp() == EditorState.EditorOP.GENERALIZATION_LINE && !o.isGroup()&& !(o instanceof CompositeObj)){
 
           int mouse_x = o.getX() + e.getX();
           int mouse_y = o.getY() + e.getY();
