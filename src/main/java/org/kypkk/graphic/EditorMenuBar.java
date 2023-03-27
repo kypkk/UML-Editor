@@ -1,5 +1,7 @@
 package org.kypkk.graphic;
 
+import org.kypkk.graphic.UMLObjects.UMLObj;
+
 import javax.swing.*;
 
 public class EditorMenuBar extends JMenuBar {
@@ -25,6 +27,14 @@ public class EditorMenuBar extends JMenuBar {
       editor.getCanvas().ungroupCompositeObj();
       editor.getState().setSelecteds(null);
       System.out.println("ungroup");
+    });
+    changeObjectItem.addActionListener(e -> {
+      for(UMLObj obj: editor.getState().getSelecteds()){
+        JFrame jf = new JFrame();
+        String getMessage = JOptionPane.showInputDialog(jf, obj.getName());
+        obj.setName(getMessage);
+        System.out.println(getMessage);
+      }
     });
 
     editMenu.add(groupItem);

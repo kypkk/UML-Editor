@@ -29,6 +29,9 @@ public class Editor extends JPanel {
     // Editor state
     state = new EditorState();
 
+    // set Background
+    this.setBackground(new Color(255, 255, 255, 139));
+
     // buttons on the left
     selectBtn = new EditorButton(new ImageIcon(ResourceManage.getResource("icons/select.png")),  EditorState.EditorOP.SELECT);
     associationLineBtn = new EditorButton(new ImageIcon(ResourceManage.getResource("icons/association.png")),  EditorState.EditorOP.ASSOCIATION_LINE);
@@ -39,8 +42,9 @@ public class Editor extends JPanel {
 
     // UMLCanvas on the right
     canvas = new UMLCanvas();
-    canvas.setSize(new Dimension(540,540));
-    canvas.setBackground(Color.lightGray);
+    canvas.setSize(new Dimension(720,720));
+    canvas.setBackground(new Color(155, 195, 248));
+
 
     // panel and canvas layout setting
     add(canvas);

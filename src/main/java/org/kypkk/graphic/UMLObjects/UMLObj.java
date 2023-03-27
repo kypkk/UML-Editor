@@ -15,6 +15,7 @@ public abstract class UMLObj extends BaseObj {
   protected boolean isGroup = false;
   private Point mousePt; // use for dragging obj
   private static creatingLine line = null;
+  private String name;
 
   private void initialize(){
     addMouseListener(new MouseListener() {
@@ -144,9 +145,10 @@ public abstract class UMLObj extends BaseObj {
     initialize();
   }
 
-  public UMLObj(int x, int y){
+  public UMLObj(int x, int y, String name){
     super();
     setLocation(x, y);
+    this.name = name;
     initialize();
   }
 
@@ -234,6 +236,14 @@ public abstract class UMLObj extends BaseObj {
   private class creatingLine{
     public LineObj.Linetype type;
     public UMLObj.portDirection start_port;
+  }
+
+  public String getName(){
+    return this.name;
+  }
+
+  public void setName(String name){
+    this.name = name;
   }
 
 }
