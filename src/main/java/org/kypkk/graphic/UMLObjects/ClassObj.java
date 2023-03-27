@@ -6,7 +6,7 @@ public class ClassObj extends UMLObj{
 
   public ClassObj(int x, int y) {
     super(x, y);
-    setSize(new Dimension(110, 60));
+    setSize(new Dimension(110, 100));
 
 
   }
@@ -15,7 +15,10 @@ public class ClassObj extends UMLObj{
   public void paintComponent(Graphics g){
     Graphics2D g2d = (Graphics2D) g;
     g2d.setStroke(new BasicStroke(3));
-    g2d.drawRect(5,5,100, 50);
+    g2d.drawString("ClassObj", 27, 20);
+    g2d.drawRect(5,5,100, 30);
+    g2d.drawRect(5, 35,100, 30);
+    g2d.drawRect(5, 65,100, 30);
     g2d.setPaint(Color.BLACK);
     paintComponentPorts(g);
   }
