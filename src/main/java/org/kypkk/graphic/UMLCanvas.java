@@ -165,7 +165,7 @@ public class UMLCanvas extends JPanel{
 
         }
         case GENERALIZATION_LINE -> {
-//          paintTriangle(g, (int) start_point.getX() , (int) start_point.getY(), (int) end_point.getX(), (int) end_point.getY());
+          paintTriangle(g, (int) start_point.getX() , (int) start_point.getY(), (int) end_point.getX(), (int) end_point.getY());
         }
         case COMPOSITION_LINE -> {
 //          paintDiamond(g, (int) start_point.getX() , (int) start_point.getY(), (int) end_point.getX(), (int) end_point.getY());
@@ -193,6 +193,25 @@ public class UMLCanvas extends JPanel{
 
     g.drawLine(end_x, end_y, (int)xm, (int)ym);
     g.drawLine(end_x, end_y, (int)xn, (int)yn);
+  }
+
+  public void paintTriangle(Graphics g, int start_x, int start_y, int end_x, int end_y){
+    int arrowW = 10, arrowH = 10;
+    g.drawLine(start_x, start_y, end_x, end_y);
+    int dx = end_x - start_x, dy = end_y - start_y;
+    double D = Math.sqrt(dx*dx + dy*dy);
+    double xm = D - arrowW, xn = xm, ym = arrowH, yn = -arrowH, x;
+    double sin = dy/D, cos = dx/D;
+    x = xm*cos - ym*sin + start_x;
+    ym = xm*sin + ym*cos + start_y;
+    xm = x;
+    x = xn*cos - yn*sin + start_x;
+    yn = xn*sin + yn*cos + start_y;
+    xn = x;
+    int[] xpoints = {end_x, (int) xm, (int) xn};
+    int[] ypoints = {end_y, (int) ym, (int) yn};
+
+    g.fillPolygon(xpoints, ypoints, 3);
   }
 
 
