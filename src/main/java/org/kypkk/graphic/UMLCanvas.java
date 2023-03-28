@@ -168,7 +168,7 @@ public class UMLCanvas extends JPanel{
           paintTriangle(g, (int) start_point.getX() , (int) start_point.getY(), (int) end_point.getX(), (int) end_point.getY());
         }
         case COMPOSITION_LINE -> {
-//          paintDiamond(g, (int) start_point.getX() , (int) start_point.getY(), (int) end_point.getX(), (int) end_point.getY());
+          paintDiamond(g, (int) start_point.getX() , (int) start_point.getY(), (int) end_point.getX(), (int) end_point.getY());
         }
       }
     }
@@ -214,6 +214,28 @@ public class UMLCanvas extends JPanel{
     g.fillPolygon(xpoints, ypoints, 3);
   }
 
+  public void paintDiamond(Graphics g, int start_x, int start_y, int end_x, int end_y){
+    int diamondW = 10, diamondH = 10;
+    g.drawLine(start_x, start_y, end_x, end_y);
+    int dx = end_x - start_x, dy = end_y - start_y;
+    double D = Math.sqrt(dx*dx + dy*dy);
+    double xm = D - diamondW, xn = xm, ym = diamondH, yn = -diamondH, x;
+    double sin = dy/D, cos = dx/D;
+    x = xm*cos - ym*sin + start_x;
+    ym = xm*sin + ym*cos + start_y;
+    xm = x;
+    x = xn*cos - yn*sin + start_x;
+    yn = xn*sin + yn*cos + start_y;
+    xn = x;
+    // 分點公式算出線上的點, 三角形的三個點與這個點連線即為一個菱形
+    double xq = (diamondH*2/D)*start_x + ((D-diamondH*2)/D)*end_x;
+    double yq = (diamondH*2/D)*start_y + ((D-diamondH*2)/D)*end_y;
 
+    int[] xpoints = {end_x, (int) xm, (int) xq, (int) xn};
+    int[] ypoints = {end_y, (int) ym, (int) yq, (int) yn};
+
+    g.fillPolygon(xpoints, ypoints, 4);
+
+  }
 
 }
