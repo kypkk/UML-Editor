@@ -30,7 +30,7 @@ public class Editor extends JPanel {
     state = new EditorState();
 
     // set Background
-    this.setBackground(new Color(255, 255, 255, 139));
+    this.setBackground(new Color(255, 255, 255, 255));
 
     // buttons on the left
     selectBtn = new EditorButton(new ImageIcon(ResourceManage.getResource("icons/select.png")),  EditorState.EditorOP.SELECT);

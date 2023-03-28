@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 
 import static java.lang.Math.*;
 
@@ -33,11 +34,15 @@ public abstract class UMLObj extends BaseObj {
         if(state.getOp() == EditorState.EditorOP.SELECT ){
           mousePt = e.getPoint();
           o = getTopObj(o);
-          o.isSelect = !isSelect;
-          if (o.isSelect)
-            state.setSelecteds(new UMLObj[]{o});
-          else
-            state.setSelecteds(null);
+          ArrayList<UMLObj> list = new ArrayList<UMLObj>();
+          list.add((UMLObj)o);
+          for(var obj: o.getComponents()){
+            ((UMLObj)obj).setSelected(!((UMLObj)obj).isSelect());
+            if (((UMLObj)obj).isSelect())
+              list.add((UMLObj)obj);
+          }
+          state.setSelecteds(list.toArray(UMLObj[]::new));
+
 
         } else if(state.getOp() == EditorState.EditorOP.ASSOCIATION_LINE || state.getOp() == EditorState.EditorOP.COMPOSITION_LINE || state.getOp() == EditorState.EditorOP.GENERALIZATION_LINE && !o.isGroup() && !(o instanceof CompositeObj)){
           var line = new creatingLine();
@@ -152,7 +157,7 @@ public abstract class UMLObj extends BaseObj {
     initialize();
   }
 
-  private static UMLObj getTopObj(UMLObj o) {
+  public static UMLObj getTopObj(UMLObj o) {
     if (o.isGroup) {
       o = (UMLObj) o.getParent();
       while (o.isGroup) {
@@ -195,12 +200,22 @@ public abstract class UMLObj extends BaseObj {
 
   public Point getPortPoint(portDirection direction){
     Point return_p = new Point();
-    switch(direction){
-      case TOP -> return_p =  new Point(getX() + 60, getY() + 5);
-      case BOTTOM -> return_p = new Point(getX() + 60, getY() + getHeight() - 5);
-      case LEFT -> return_p = new Point(getX() + 5, (int)(getY() + 0.5*getHeight()));
-      case RIGHT -> return_p = new Point(getX() + getWidth() - 5, (int)(getY() + 0.5*getHeight()));
-    };
+    if(this.isGroup){
+      switch(direction){
+        case TOP -> return_p =  new Point(getX() + 60 + getTopObj(this).getX(), getY() + 5 + getTopObj(this).getY());
+        case BOTTOM -> return_p = new Point(getX() + 60 + getTopObj(this).getX(), getY() + getHeight() - 5 + getTopObj(this).getY());
+        case LEFT -> return_p = new Point(getX() + 5 + getTopObj(this).getX(), (int)(getY() + 0.5*getHeight()) + getTopObj(this).getY());
+        case RIGHT -> return_p = new Point(getX() + getWidth() - 5 + getTopObj(this).getX(), (int)(getY() + 0.5*getHeight()) + getTopObj(this).getY());
+      };
+    }else{
+      switch(direction){
+        case TOP -> return_p =  new Point(getX() + 60 , getY() + 5 );
+        case BOTTOM -> return_p = new Point(getX() + 60 , getY() + getHeight() - 5 );
+        case LEFT -> return_p = new Point(getX() + 5 , (int)(getY() + 0.5*getHeight()));
+        case RIGHT -> return_p = new Point(getX() + getWidth() - 5 , (int)(getY() + 0.5*getHeight()));
+      };
+    }
+
     return return_p;
   }
 

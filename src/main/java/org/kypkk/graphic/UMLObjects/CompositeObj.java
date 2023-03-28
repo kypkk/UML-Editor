@@ -9,12 +9,10 @@ public class CompositeObj extends UMLObj{
   public CompositeObj(UMLObj[] UmlObjs){
     super();
     setOpaque(false);
-    int x = 0; // x of a single umlobj
-    int y = 0; // y of a single umlobj
     int loc_x = 540; // x for the compositeobj
     int loc_y = 540; // y for the compositeobj
-    int width = 110; // the width for the compositeobj
-    int height = 10; // the height for the composite obj
+    int width = 0; // the width for the compositeobj
+    int height = 0; // the height for the composite obj
 
     for(UMLObj obj: UmlObjs){
       add(obj);
@@ -24,8 +22,8 @@ public class CompositeObj extends UMLObj{
     }
 
     for(UMLObj obj: UmlObjs){
-      height += obj.getHeight();
-      height -= 10;
+      width = max(obj.getX() + 110 - loc_x, width);
+      height = max(obj.getY() + obj.getHeight() - loc_y, height);
     }
 
     // count how many umlobjs
@@ -34,10 +32,8 @@ public class CompositeObj extends UMLObj{
     setBounds(loc_x, loc_y, width, height);
 
 
-    int count = 0;
     for(UMLObj obj: UmlObjs){
-      obj.setLocation(x, y);
-      y += obj.getHeight() - 10;
+      obj.setLocation(obj.getX() - loc_x, obj.getY() - loc_y);
     }
   }
 
@@ -46,6 +42,5 @@ public class CompositeObj extends UMLObj{
     Graphics2D g2d = (Graphics2D) g;
     g2d.setStroke(new BasicStroke(3));
     g2d.setPaint(Color.BLACK);
-    paintComponentPorts(g);
   }
 }

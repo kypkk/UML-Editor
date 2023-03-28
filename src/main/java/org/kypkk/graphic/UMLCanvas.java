@@ -117,7 +117,7 @@ public class UMLCanvas extends JPanel {
 
   public void ungroupCompositeObj(){
     UMLObj[] selectedObjs = editor.getState().getSelecteds();
-    if(selectedObjs != null && selectedObjs.length == 1 && selectedObjs[0] instanceof CompositeObj){
+    if(selectedObjs != null && selectedObjs[0] instanceof CompositeObj){
       CompositeObj Compo = (CompositeObj) selectedObjs[0];
       remove(Compo);
 
@@ -125,7 +125,7 @@ public class UMLCanvas extends JPanel {
         Compo.remove(obj);
         add(obj);
         ((UMLObj)obj).setGrouped(false);
-        obj.setLocation(obj.getX(), obj.getY());
+        obj.setLocation(obj.getX() + Compo.getX(), obj.getY() + Compo.getY());
       }
       repaint();
     }
@@ -157,7 +157,7 @@ public class UMLCanvas extends JPanel {
       UMLObj end_obj = line.getEnd_obj();
       Point start_point = start_obj.getPortPoint(line.getStart_port());
       Point end_point = end_obj.getPortPoint(line.getEnd_port());
-      g2d.drawLine((int) start_point.getX(), (int) start_point.getY(), (int) end_point.getX(), (int) end_point.getY());
+      g2d.drawLine((int) start_point.getX() , (int) start_point.getY(), (int) end_point.getX(), (int) end_point.getY());
     }
     repaint();
 
