@@ -16,11 +16,13 @@ import java.util.ArrayList;
  */
 
 
-public class UMLCanvas extends JPanel {
+public class UMLCanvas extends JPanel{
 
   private final Editor editor;
   private SelectObjs selectObjs;
   private final ArrayList<LineObj> lineObjArrayList;
+  public  int startpointX, endpointX;
+  public  int startpointY, endpointY;
 
   public UMLCanvas (){
     super(new UMLLayoutManager());
@@ -157,10 +159,42 @@ public class UMLCanvas extends JPanel {
       UMLObj end_obj = line.getEnd_obj();
       Point start_point = start_obj.getPortPoint(line.getStart_port());
       Point end_point = end_obj.getPortPoint(line.getEnd_port());
-      g2d.drawLine((int) start_point.getX() , (int) start_point.getY(), (int) end_point.getX(), (int) end_point.getY());
+      switch (line.getType()) {
+        case ASSOCIATION_LINE -> {
+          paintArrow(g, (int) start_point.getX() , (int) start_point.getY(), (int) end_point.getX(), (int) end_point.getY());
+
+        }
+        case GENERALIZATION_LINE -> {
+//          paintTriangle(g, (int) start_point.getX() , (int) start_point.getY(), (int) end_point.getX(), (int) end_point.getY());
+        }
+        case COMPOSITION_LINE -> {
+//          paintDiamond(g, (int) start_point.getX() , (int) start_point.getY(), (int) end_point.getX(), (int) end_point.getY());
+        }
+      }
     }
     repaint();
 
   }
+
+  public void paintArrow(Graphics g, int start_x, int start_y, int end_x, int end_y){
+    int arrowW = 10, arrowH = 10;
+    g.drawLine(start_x, start_y, end_x, end_y);
+    int dx = end_x - start_x, dy = end_y - start_y;
+    double D = Math.sqrt(dx*dx + dy*dy);
+    double xm = D - arrowW, xn = xm, ym = arrowH, yn = -arrowH, x;
+    double sin = dy/D, cos = dx/D;
+    x = xm*cos - ym*sin + start_x;
+    ym = xm*sin + ym*cos + start_y;
+    xm = x;
+    x = xn*cos - yn*sin + start_x;
+    yn = xn*sin + yn*cos + start_y;
+    xn = x;
+
+
+    g.drawLine(end_x, end_y, (int)xm, (int)ym);
+    g.drawLine(end_x, end_y, (int)xn, (int)yn);
+  }
+
+
 
 }

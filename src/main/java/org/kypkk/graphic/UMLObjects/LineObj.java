@@ -35,4 +35,8 @@ public class LineObj {
     return end_port;
   }
 
+  public Linetype getType(){
+    return this.type;
+  }
+
 }
