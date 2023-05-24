@@ -1,6 +1,6 @@
 package org.kypkk;
 
-import org.kypkk.graphic.Editor;
+import org.kypkk.graphic.Editor.Editor;
 
 
 public class App {

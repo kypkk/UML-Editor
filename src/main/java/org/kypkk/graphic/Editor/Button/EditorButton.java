@@ -1,4 +1,7 @@
-package org.kypkk.graphic;
+package org.kypkk.graphic.Editor.Button;
+
+import org.kypkk.graphic.Editor.Editor;
+import org.kypkk.graphic.Editor.EditorState;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +11,7 @@ public class EditorButton extends JButton{
   private final Editor editor;
   private final EditorState.EditorOP op;
 
-  EditorButton(Icon icon, EditorState.EditorOP op){
+  public EditorButton(Icon icon, EditorState.EditorOP op){
     super(icon);
     editor = Editor.getInstance();
     this.op = op;

@@ -1,4 +1,4 @@
-package org.kypkk.graphic;
+package org.kypkk.graphic.Editor;
 
 import org.kypkk.graphic.UMLObjects.*;
 
@@ -121,6 +121,15 @@ public class UMLCanvas extends JPanel{
         obj.setLocation(obj.getX() + Compo.getX(), obj.getY() + Compo.getY());
       }
       repaint();
+    }
+  }
+
+  public void changeObjectItem(){
+    for(UMLObj obj: editor.getEditorState().getSelecteds()){
+      JFrame jf = new JFrame();
+      String getMessage = JOptionPane.showInputDialog(jf, obj.getName());
+      obj.setName(getMessage);
+      System.out.println(getMessage);
     }
   }
 

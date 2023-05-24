@@ -1,7 +1,7 @@
 package org.kypkk.graphic.UMLObjects;
 
-import org.kypkk.graphic.Editor;
-import org.kypkk.graphic.EditorState;
+import org.kypkk.graphic.Editor.Editor;
+import org.kypkk.graphic.Editor.EditorState;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;

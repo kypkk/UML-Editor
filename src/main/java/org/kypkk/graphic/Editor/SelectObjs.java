@@ -1,4 +1,4 @@
-package org.kypkk.graphic;
+package org.kypkk.graphic.Editor;
 
 import org.kypkk.graphic.UMLObjects.UMLObj;
 

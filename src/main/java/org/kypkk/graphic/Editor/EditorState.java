@@ -1,4 +1,4 @@
-package org.kypkk.graphic;
+package org.kypkk.graphic.Editor;
 
 import org.kypkk.core.events.StateEvent;
 import org.kypkk.core.events.StateListener;
