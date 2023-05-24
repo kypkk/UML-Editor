@@ -24,9 +24,7 @@ public class EditorButton extends JButton{
     if(op == EditorState.EditorOP.SELECT)
       setBackground(Color.BLACK);
 
-    addActionListener(e -> {
-      editor.getEditorState().setOp(this.op);
-    });
+    addActionListener(e -> editor.getEditorState().setOp(this.op));
 
     editor.getEditorState().addStateListener(e -> {
       Editor editor = (Editor) e.getSource();

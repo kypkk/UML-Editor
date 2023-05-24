@@ -21,13 +21,11 @@ public class UMLCanvas extends JPanel{
   private final Editor editor;
   private SelectObjs selectObjs;
   private final ArrayList<LineObj> lineObjArrayList;
-  public  int startpointX, endpointX;
-  public  int startpointY, endpointY;
 
   public UMLCanvas (){
     super(new UMLLayoutManager());
     editor = Editor.getInstance();
-    lineObjArrayList = new ArrayList<LineObj>();
+    lineObjArrayList = new ArrayList<>();
 
     addMouseListener(new MouseListener() {
       @Override
@@ -40,14 +38,8 @@ public class UMLCanvas extends JPanel{
         System.out.println("pressed");
 
         switch(editor.getEditorState().getOp()){
-          case CLASS -> {
-            createClassObj(e.getX(), e.getY());
-            break;
-          }
-          case USE_CASE -> {
-            createUsecaseObj(e.getX(), e.getY());
-            break;
-          }
+          case CLASS -> createClassObj(e.getX(), e.getY());
+          case USE_CASE -> createUsecaseObj(e.getX(), e.getY());
         }
         if(editor.getEditorState().getOp() == EditorState.EditorOP.SELECT){
           editor.getEditorState().setSelecteds(null);
@@ -119,8 +111,7 @@ public class UMLCanvas extends JPanel{
 
   public void ungroupCompositeObj(){
     UMLObj[] selectedObjs = editor.getEditorState().getSelecteds();
-    if(selectedObjs != null && selectedObjs[0] instanceof CompositeObj){
-      CompositeObj Compo = (CompositeObj) selectedObjs[0];
+    if(selectedObjs != null && selectedObjs[0] instanceof CompositeObj Compo){
       remove(Compo);
 
       for(var obj: Compo.getComponents()){
@@ -160,16 +151,9 @@ public class UMLCanvas extends JPanel{
       Point start_point = start_obj.getPortPoint(line.getStart_port());
       Point end_point = end_obj.getPortPoint(line.getEnd_port());
       switch (line.getType()) {
-        case ASSOCIATION_LINE -> {
-          paintArrow(g, (int) start_point.getX() , (int) start_point.getY(), (int) end_point.getX(), (int) end_point.getY());
-
-        }
-        case GENERALIZATION_LINE -> {
-          paintTriangle(g, (int) start_point.getX() , (int) start_point.getY(), (int) end_point.getX(), (int) end_point.getY());
-        }
-        case COMPOSITION_LINE -> {
-          paintDiamond(g, (int) start_point.getX() , (int) start_point.getY(), (int) end_point.getX(), (int) end_point.getY());
-        }
+        case ASSOCIATION_LINE -> paintArrow(g, (int) start_point.getX() , (int) start_point.getY(), (int) end_point.getX(), (int) end_point.getY());
+        case GENERALIZATION_LINE -> paintTriangle(g, (int) start_point.getX() , (int) start_point.getY(), (int) end_point.getX(), (int) end_point.getY());
+        case COMPOSITION_LINE -> paintDiamond(g, (int) start_point.getX() , (int) start_point.getY(), (int) end_point.getX(), (int) end_point.getY());
       }
     }
     repaint();

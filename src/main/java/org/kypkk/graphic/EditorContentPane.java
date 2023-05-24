@@ -5,13 +5,13 @@ import java.awt.*;
 
 public class EditorContentPane extends JPanel {
   private final UMLCanvas canvas;
-  private final ButtonBar Buttons;
+
   EditorContentPane(){
     canvas = new UMLCanvas();
-    Buttons = new ButtonBar();
+    ButtonBar buttons = new ButtonBar();
 
     add(canvas);
-    add(Buttons);
+    add(buttons);
 
     canvas.setSize(new Dimension(1120,720));
     canvas.setBackground(new Color(155, 195, 248));
@@ -25,22 +25,18 @@ public class EditorContentPane extends JPanel {
 
     layout.setHorizontalGroup(
       layout.createSequentialGroup()
-        .addComponent(Buttons)
+        .addComponent(buttons)
         .addComponent(canvas)
 
     );
 
-    layout.setVerticalGroup(layout.createParallelGroup().addComponent(Buttons).addComponent(canvas));
+    layout.setVerticalGroup(layout.createParallelGroup().addComponent(buttons).addComponent(canvas));
 
 
 }
 
   public UMLCanvas getCanvas(){
     return canvas;
-  }
-
-  public ButtonBar getButtons(){
-    return Buttons;
   }
 
 }

@@ -34,8 +34,8 @@ public abstract class UMLObj extends BaseObj {
         if(state.getOp() == EditorState.EditorOP.SELECT ){
           mousePt = e.getPoint();
           o = getTopObj(o);
-          ArrayList<UMLObj> list = new ArrayList<UMLObj>();
-          list.add((UMLObj)o);
+          ArrayList<UMLObj> list = new ArrayList<>();
+          list.add(o);
           for(var obj: o.getComponents()){
             ((UMLObj)obj).setSelected(!((UMLObj)obj).isSelect());
             if (((UMLObj)obj).isSelect())
@@ -206,14 +206,14 @@ public abstract class UMLObj extends BaseObj {
         case BOTTOM -> return_p = new Point(getX() + 60 + getTopObj(this).getX(), getY() + getHeight() - 5 + getTopObj(this).getY());
         case LEFT -> return_p = new Point(getX() + 5 + getTopObj(this).getX(), (int)(getY() + 0.5*getHeight()) + getTopObj(this).getY());
         case RIGHT -> return_p = new Point(getX() + getWidth() - 5 + getTopObj(this).getX(), (int)(getY() + 0.5*getHeight()) + getTopObj(this).getY());
-      };
+      }
     }else{
       switch(direction){
         case TOP -> return_p =  new Point(getX() + 60 , getY() + 5 );
         case BOTTOM -> return_p = new Point(getX() + 60 , getY() + getHeight() - 5 );
         case LEFT -> return_p = new Point(getX() + 5 , (int)(getY() + 0.5*getHeight()));
         case RIGHT -> return_p = new Point(getX() + getWidth() - 5 , (int)(getY() + 0.5*getHeight()));
-      };
+      }
     }
 
     return return_p;
@@ -223,9 +223,9 @@ public abstract class UMLObj extends BaseObj {
     portDirection ret_port;
 
     double top_d = sqrt(pow(mouseX - 60, 2) + pow(mouseY - 5, 2));
-    double left_d = sqrt(pow(mouseX - 5, 2) + pow(mouseY - getHeight()/2, 2));
+    double left_d = sqrt(pow(mouseX - 5, 2) + pow(mouseY - (float)(getHeight()/2), 2));
     double bottom_d = sqrt(pow(mouseX - 60, 2) + pow(mouseY - getHeight() - 5, 2));
-    double right_d = sqrt(pow(mouseX - 105, 2) + pow(mouseY - getHeight()/2, 2));
+    double right_d = sqrt(pow(mouseX - 105, 2) + pow(mouseY - (float)(getHeight())/2, 2));
 
 
     double min_d = min(top_d, left_d);
@@ -248,7 +248,7 @@ public abstract class UMLObj extends BaseObj {
     TOP, RIGHT, BOTTOM, LEFT
   }
 
-  private class creatingLine{
+  private static class creatingLine{
     public LineObj.Linetype type;
     public UMLObj.portDirection start_port;
   }

@@ -4,7 +4,6 @@ import org.kypkk.core.events.StateEvent;
 import org.kypkk.core.events.StateListener;
 import org.kypkk.graphic.UMLObjects.UMLObj;
 
-import javax.swing.event.ChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,10 +1,6 @@
 package org.kypkk.graphic;
 
-import org.kypkk.core.ResourceManage;
-import org.kypkk.core.events.StateListener;
-
 import javax.swing.*;
-import java.awt.*;
 
 public class Editor extends JFrame{
 

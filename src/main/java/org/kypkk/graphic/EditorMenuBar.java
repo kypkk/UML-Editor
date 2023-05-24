@@ -6,13 +6,11 @@ import javax.swing.*;
 
 public class EditorMenuBar extends JMenuBar {
     private final Editor editor;
-    private final JMenu fileMenu;
-    private final JMenu editMenu;
 
   public EditorMenuBar(){
     editor = Editor.getInstance();
-    fileMenu = new JMenu("File");
-    editMenu = new JMenu("Edit");
+    JMenu fileMenu = new JMenu("File");
+    JMenu editMenu = new JMenu("Edit");
 
     JMenuItem groupItem = new JMenuItem("Group");
     JMenuItem ungroupItem = new JMenuItem("UnGroup");
