@@ -13,6 +13,8 @@ public class EditorContentPane extends JPanel {
     add(canvas);
     add(Buttons);
 
+    canvas.setSize(new Dimension(1120,720));
+    canvas.setBackground(new Color(155, 195, 248));
     // set Background
     this.setBackground(new Color(255, 255, 255, 255));
 

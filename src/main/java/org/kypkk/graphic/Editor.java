@@ -30,8 +30,8 @@ public class Editor extends JFrame{
     setJMenuBar(new EditorMenuBar());
 
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-    setBounds(500, 300, 900, 900);
-
+    setBounds(500, 300, 1600, 900);
+    setVisible(true);
     pack();
 
 

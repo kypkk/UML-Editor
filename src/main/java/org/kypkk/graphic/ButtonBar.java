@@ -22,6 +22,7 @@ public class ButtonBar extends JPanel{
     useCaseBtn = new EditorButton(new ImageIcon(ResourceManage.getResource("icons/usecase.png")), EditorState.EditorOP.USE_CASE);
 
     GroupLayout layout = new GroupLayout(this);
+    setLayout(layout);
     layout.setAutoCreateGaps(true);
     layout.setAutoCreateContainerGaps(true);
 
