@@ -28,7 +28,7 @@ public abstract class UMLObj extends BaseObj {
       @Override
       public void mousePressed(MouseEvent e) {
         UMLObj o = (UMLObj) e.getSource();
-        EditorState state = editor.getState();
+        EditorState state = editor.getEditorState();
 
 
         if(state.getOp() == EditorState.EditorOP.SELECT ){
@@ -60,7 +60,7 @@ public abstract class UMLObj extends BaseObj {
       @Override
       public void mouseReleased(MouseEvent e) {
         UMLObj o = (UMLObj) e.getSource();
-        EditorState state = editor.getState();
+        EditorState state = editor.getEditorState();
 
         if(line!= null && state.getOp() == EditorState.EditorOP.ASSOCIATION_LINE || state.getOp() == EditorState.EditorOP.COMPOSITION_LINE || state.getOp() == EditorState.EditorOP.GENERALIZATION_LINE && !o.isGroup()&& !(o instanceof CompositeObj)){
 
@@ -70,7 +70,7 @@ public abstract class UMLObj extends BaseObj {
 
           UMLObj end_obj = null;
 
-          for(var compo: editor.getCanvas().getComponents()){
+          for(var compo: editor.getContentPane().getCanvas().getComponents()){
 
               if(mouse_x > compo.getX() && mouse_x < compo.getX() + compo.getWidth() && mouse_y > compo.getY() && mouse_y < compo.getY() + compo.getHeight()){
                 if(end_obj == null || end_obj.getDepth() > ((UMLObj) compo).getDepth()){
@@ -81,7 +81,7 @@ public abstract class UMLObj extends BaseObj {
           }
 
           if(end_obj != null){
-            editor.getCanvas().createLineObj(o, end_obj, line.start_port, end_obj.getPortDirection(mouse_x - end_obj.getX(), mouse_y - end_obj.getY()), line.type);
+            editor.getContentPane().getCanvas().createLineObj(o, end_obj, line.start_port, end_obj.getPortDirection(mouse_x - end_obj.getX(), mouse_y - end_obj.getY()), line.type);
             System.out.println("line created");
 
           }
@@ -106,7 +106,7 @@ public abstract class UMLObj extends BaseObj {
       public void mouseDragged(MouseEvent e) {
         UMLObj o = (UMLObj) e.getSource();
         o = getTopObj(o);
-        EditorState state = editor.getState();
+        EditorState state = editor.getEditorState();
         if(state.getOp() == EditorState.EditorOP.SELECT){
           o.isSelect = true;
           int dx = e.getX() - mousePt.x;
@@ -124,8 +124,8 @@ public abstract class UMLObj extends BaseObj {
       }
     });
 
-    editor.addStateListener(e -> {
-      UMLObj[] selecteds =((Editor) e.getSource()).getState().getSelecteds();
+    editor.getEditorState().addStateListener(e -> {
+      UMLObj[] selecteds =((Editor) e.getSource()).getEditorState().getSelecteds();
       if(selecteds == null)
         isSelect = false;
       else{

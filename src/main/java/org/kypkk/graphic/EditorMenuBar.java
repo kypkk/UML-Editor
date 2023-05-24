@@ -19,17 +19,17 @@ public class EditorMenuBar extends JMenuBar {
     JMenuItem changeObjectItem = new JMenuItem("ChangeObject");
 
     groupItem.addActionListener(e -> {
-      editor.getCanvas().createCompositeObj();
-      editor.getState().setSelecteds(null);
+      editor.getContentPane().getCanvas().createCompositeObj();
+      editor.getEditorState().setSelecteds(null);
       System.out.println("group");
     });
     ungroupItem.addActionListener(e -> {
-      editor.getCanvas().ungroupCompositeObj();
-      editor.getState().setSelecteds(null);
+      editor.getContentPane().getCanvas().ungroupCompositeObj();
+      editor.getEditorState().setSelecteds(null);
       System.out.println("ungroup");
     });
     changeObjectItem.addActionListener(e -> {
-      for(UMLObj obj: editor.getState().getSelecteds()){
+      for(UMLObj obj: editor.getEditorState().getSelecteds()){
         JFrame jf = new JFrame();
         String getMessage = JOptionPane.showInputDialog(jf, obj.getName());
         obj.setName(getMessage);

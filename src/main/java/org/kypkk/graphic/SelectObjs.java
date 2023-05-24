@@ -64,7 +64,7 @@ public class SelectObjs extends JPanel {
     }
 
     UMLObj[] selectedOBJlist = new UMLObj[selectedList.size()];
-    Editor.getInstance().getState().setSelecteds(selectedList.toArray(selectedOBJlist));
+    Editor.getInstance().getEditorState().setSelecteds(selectedList.toArray(selectedOBJlist));
   }
 
 }

@@ -39,7 +39,7 @@ public class UMLCanvas extends JPanel{
       public void mousePressed(MouseEvent e) {
         System.out.println("pressed");
 
-        switch(editor.getState().getOp()){
+        switch(editor.getEditorState().getOp()){
           case CLASS -> {
             createClassObj(e.getX(), e.getY());
             break;
@@ -49,8 +49,8 @@ public class UMLCanvas extends JPanel{
             break;
           }
         }
-        if(editor.getState().getOp() == EditorState.EditorOP.SELECT){
-          editor.getState().setSelecteds(null);
+        if(editor.getEditorState().getOp() == EditorState.EditorOP.SELECT){
+          editor.getEditorState().setSelecteds(null);
 
           selectObjs = new SelectObjs(e.getX(), e.getY());
           add(selectObjs);
@@ -62,7 +62,7 @@ public class UMLCanvas extends JPanel{
       @Override
       public void mouseReleased(MouseEvent e) {
         System.out.println("released");
-        if(editor.getState().getOp() == EditorState.EditorOP.SELECT && selectObjs != null){
+        if(editor.getEditorState().getOp() == EditorState.EditorOP.SELECT && selectObjs != null){
 
           selectObjs.selectUMLObjs(getComponents());
 
@@ -88,7 +88,7 @@ public class UMLCanvas extends JPanel{
       public void mouseDragged(MouseEvent e) {
         System.out.println("dragged");
 
-        if(editor.getState().getOp() == EditorState.EditorOP.SELECT && selectObjs != null){
+        if(editor.getEditorState().getOp() == EditorState.EditorOP.SELECT && selectObjs != null){
           int mouseX;
           int mouseY;
 
@@ -108,7 +108,7 @@ public class UMLCanvas extends JPanel{
   }
 
   public void createCompositeObj(){
-    UMLObj[] selectedObjs = editor.getState().getSelecteds();
+    UMLObj[] selectedObjs = editor.getEditorState().getSelecteds();
     if(selectedObjs != null && selectedObjs.length > 1){
       for(UMLObj obj : selectedObjs)
         remove(obj);
@@ -118,7 +118,7 @@ public class UMLCanvas extends JPanel{
   }
 
   public void ungroupCompositeObj(){
-    UMLObj[] selectedObjs = editor.getState().getSelecteds();
+    UMLObj[] selectedObjs = editor.getEditorState().getSelecteds();
     if(selectedObjs != null && selectedObjs[0] instanceof CompositeObj){
       CompositeObj Compo = (CompositeObj) selectedObjs[0];
       remove(Compo);

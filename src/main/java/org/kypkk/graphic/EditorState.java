@@ -4,12 +4,18 @@ import org.kypkk.core.events.StateEvent;
 import org.kypkk.core.events.StateListener;
 import org.kypkk.graphic.UMLObjects.UMLObj;
 
+import javax.swing.event.ChangeListener;
+import java.util.ArrayList;
+import java.util.List;
+
 public class EditorState {
 
   private UMLObj[] selecteds;
 
   private final Editor editor;
   private EditorOP op = EditorOP.SELECT;
+
+  private final List<StateListener> listenerList = new ArrayList<>();
 
   public EditorState(){
     editor = Editor.getInstance();
@@ -24,8 +30,12 @@ public class EditorState {
     setOpEvent();
   }
 
+  public void addStateListener(StateListener listener) {
+    listenerList.add(listener);
+  }
+
   public void setOpEvent(){
-    for(StateListener listener: editor.getStateListeners()){
+    for(StateListener listener: listenerList){
       listener.changeState(new StateEvent(editor));
     }
   }
