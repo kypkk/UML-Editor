@@ -30,12 +30,10 @@ public class UMLCanvas extends JPanel{
     addMouseListener(new MouseListener() {
       @Override
       public void mouseClicked(MouseEvent e) {
-        System.out.println("clicked");
       }
 
       @Override
       public void mousePressed(MouseEvent e) {
-        System.out.println("pressed");
 
         switch(editor.getEditorState().getOp()){
           case CLASS -> createClassObj(e.getX(), e.getY());
@@ -48,12 +46,10 @@ public class UMLCanvas extends JPanel{
           add(selectObjs);
           selectObjs.repaint();
         }
-        System.out.println("pressed");
       }
 
       @Override
       public void mouseReleased(MouseEvent e) {
-        System.out.println("released");
         if(editor.getEditorState().getOp() == EditorState.EditorOP.SELECT && selectObjs != null){
 
           selectObjs.selectUMLObjs(getComponents());
@@ -66,19 +62,16 @@ public class UMLCanvas extends JPanel{
 
       @Override
       public void mouseEntered(MouseEvent e) {
-        System.out.println("entered");
       }
 
       @Override
       public void mouseExited(MouseEvent e) {
-        System.out.println("exited");
       }
     });
 
     addMouseMotionListener(new MouseMotionListener() {
       @Override
       public void mouseDragged(MouseEvent e) {
-        System.out.println("dragged");
 
         if(editor.getEditorState().getOp() == EditorState.EditorOP.SELECT && selectObjs != null){
           int mouseX;
@@ -94,7 +87,6 @@ public class UMLCanvas extends JPanel{
 
       @Override
       public void mouseMoved(MouseEvent e) {
-        System.out.println("moving");
       }
     });
   }
@@ -111,14 +103,14 @@ public class UMLCanvas extends JPanel{
 
   public void ungroupCompositeObj(){
     UMLObj[] selectedObjs = editor.getEditorState().getSelecteds();
-    if(selectedObjs != null && selectedObjs[0] instanceof CompositeObj Compo){
-      remove(Compo);
+    if(selectedObjs != null && selectedObjs[0].isUngroupable()){
+      remove(selectedObjs[0]);
 
-      for(var obj: Compo.getComponents()){
-        Compo.remove(obj);
+      for(var obj: selectedObjs[0].getComponents()){
+        selectedObjs[0].remove(obj);
         add(obj);
         ((UMLObj)obj).setGrouped(false);
-        obj.setLocation(obj.getX() + Compo.getX(), obj.getY() + Compo.getY());
+        obj.setLocation(obj.getX() + selectedObjs[0].getX(), obj.getY() + selectedObjs[0].getY());
       }
       repaint();
     }
@@ -129,7 +121,6 @@ public class UMLCanvas extends JPanel{
       JFrame jf = new JFrame();
       String getMessage = JOptionPane.showInputDialog(jf, obj.getName());
       obj.setName(getMessage);
-      System.out.println(getMessage);
     }
   }
 

@@ -1,5 +1,6 @@
 package org.kypkk.graphic.Editor;
 
+import org.kypkk.graphic.Editor.Editor;
 import org.kypkk.graphic.UMLObjects.UMLObj;
 
 import javax.swing.*;

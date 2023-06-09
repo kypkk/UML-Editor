@@ -17,6 +17,8 @@ public abstract class UMLObj extends BaseObj {
   private Point mousePt; // use for dragging obj
   private static creatingLine line = null;
   private String name;
+  protected boolean lineable = true;
+  protected boolean ungroupable = true;
 
   private void initialize(){
     addMouseListener(new MouseListener() {
@@ -44,7 +46,7 @@ public abstract class UMLObj extends BaseObj {
           state.setSelecteds(list.toArray(UMLObj[]::new));
 
 
-        } else if(state.getOp() == EditorState.EditorOP.ASSOCIATION_LINE || state.getOp() == EditorState.EditorOP.COMPOSITION_LINE || state.getOp() == EditorState.EditorOP.GENERALIZATION_LINE && !o.isGroup() && !(o instanceof CompositeObj)){
+        } else if(state.getOp() == EditorState.EditorOP.ASSOCIATION_LINE || state.getOp() == EditorState.EditorOP.COMPOSITION_LINE || state.getOp() == EditorState.EditorOP.GENERALIZATION_LINE && !o.isGroup() && lineable){
           var line = new creatingLine();
           System.out.println("creating line");
           switch(state.getOp()){
@@ -62,7 +64,7 @@ public abstract class UMLObj extends BaseObj {
         UMLObj o = (UMLObj) e.getSource();
         EditorState state = editor.getEditorState();
 
-        if(line!= null && state.getOp() == EditorState.EditorOP.ASSOCIATION_LINE || state.getOp() == EditorState.EditorOP.COMPOSITION_LINE || state.getOp() == EditorState.EditorOP.GENERALIZATION_LINE && !o.isGroup()&& !(o instanceof CompositeObj)){
+        if(line!= null && state.getOp() == EditorState.EditorOP.ASSOCIATION_LINE || state.getOp() == EditorState.EditorOP.COMPOSITION_LINE || state.getOp() == EditorState.EditorOP.GENERALIZATION_LINE && !o.isGroup() && lineable){
 
           int mouse_x = o.getX() + e.getX();
           int mouse_y = o.getY() + e.getY();
@@ -259,6 +261,10 @@ public abstract class UMLObj extends BaseObj {
 
   public void setName(String name){
     this.name = name;
+  }
+
+  public boolean isUngroupable(){
+    return ungroupable;
   }
 
 }

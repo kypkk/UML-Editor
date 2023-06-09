@@ -14,6 +14,9 @@ public class CompositeObj extends UMLObj{
     int width = 0; // the width for the compositeobj
     int height = 0; // the height for the composite obj
 
+    lineable = false;
+    ungroupable = true;
+
     for(UMLObj obj: UmlObjs){
       add(obj);
       obj.setGrouped(true);

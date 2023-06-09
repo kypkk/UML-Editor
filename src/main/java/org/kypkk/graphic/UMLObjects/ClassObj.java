@@ -5,9 +5,12 @@ import java.awt.*;
 public class ClassObj extends UMLObj{
 
   public ClassObj(int x, int y) {
+
     super(x, y, "ClassObj");
     setSize(new Dimension(110, 100));
 
+    lineable = true;
+    ungroupable = false;
 
   }
 

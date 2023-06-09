@@ -7,6 +7,9 @@ public class UseCaseObj extends UMLObj{
   public UseCaseObj(int x, int y){
     super(x, y, "UseCaseObj");
     setSize(new Dimension(110, 60));
+
+    lineable = true;
+    ungroupable = false;
   }
 
   @Override
